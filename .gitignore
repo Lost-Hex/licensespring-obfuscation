@@ -1,0 +1,7 @@
+.idea
+out
+target
+dependency-reduced-pom.xml
+LicenseSpring
+.DS_Store
+**/.DS_Store

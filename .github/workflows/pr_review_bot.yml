@@ -1,0 +1,25 @@
+# Chatbot powered PR reviews. 
+# This bot DOES not replace human reviewers, it's here to simply add insights.
+name: Skynet PR Review
+
+# We needs permissions to read the github code and the ability to write comments.
+permissions:
+  contents: read
+  pull-requests: write
+# we only review on PRs and changes to PRs - all the events are relevant.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  chatbot-gpt-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ChatGTP PR view
+        uses: fr33d00m/chatgpt-github-actions@v2.2.0
+        with:
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_pr_id: ${{ github.event.number }}
+          # gpt-3.5 turbo is more advanced than the default davincii.
+          openai_engine: gpt-3.5-turbo
