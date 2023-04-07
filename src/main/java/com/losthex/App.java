@@ -8,11 +8,12 @@ public class App {
         MyLicenseManager licenseManagerClass = new MyLicenseManager();
 
         if (args.length != 5  && args.length!=4) {
-            System.out.println("Four arguments required: apiKey, sharedKey, licenceKey, productName and optional isStaging(yes/no) variable");
-        } else if (args.length==5){
-            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], args[4]);
+            String errorMessage = "Four arguments required: apiKey, sharedKey, licenceKey, productName and optional isStaging(yes/no) variable";
+            System.out.println(errorMessage);
+            throw new IllegalArgumentException(errorMessage);
         } else {
-            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], "no");
+            String isStaging = args.length == 5 ? args[4] : "no";
+            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], isStaging);
         }
     }
 }
