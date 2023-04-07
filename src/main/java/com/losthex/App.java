@@ -5,11 +5,14 @@ import com.losthex.licensespring.MyLicenseManager;
 public class App {
     public static void main(String[] args) {
         System.out.println("Starting...");
-        if (args.length != 5) {
-            System.out.println("Five arguments required: apiKey, sharedKey, licenceKey, productName and isStaging(yes/no) variable");
+        MyLicenseManager licenseManagerClass = new MyLicenseManager();
+
+        if (args.length != 5  && args.length!=4) {
+            System.out.println("Four arguments required: apiKey, sharedKey, licenceKey, productName and optional isStaging(yes/no) variable");
+        } else if (args.length==5){
+            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], args[4]);
         } else {
-            MyLicenseManager liscenceManagerClass = new MyLicenseManager();
-            liscenceManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], args[4]);
+            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], "no");
         }
     }
 }

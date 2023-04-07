@@ -24,17 +24,20 @@ The `MyLicenseManager` class is a simple wrapper around the LicenseSpring Licens
 
 ## App (Main Class)
 
-The `App` class is the main entry point of the application. It expects five command-line arguments: `apiKey`, `sharedKey`, `licenceKey`, `productName`, and `isStaging` (yes/no).
+The `App` class is the main entry point of the application. It expects four command-line arguments, in order: `apiKey`, `sharedKey`, `licenceKey` and `productName`. Optionally `isStaging` (yes/no) can be input as a fifth command-line argument (defaults to no).
 
 ```java
 public class App {
     public static void main(String[] args) {
         System.out.println("Starting...");
-        if (args.length != 5) {
-            System.out.println("Five arguments required: apiKey, sharedKey, licenceKey, productName and isStaging(yes/no) variable");
+        MyLicenseManager licenseManagerClass = new MyLicenseManager();
+
+        if (args.length != 5  && args.length!=4) {
+            System.out.println("Four arguments required: apiKey, sharedKey, licenceKey, productName and optional isStaging(yes/no) variable");
+        } else if (args.length==5){
+            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], args[4]);
         } else {
-            MyLicenseManager liscenceManagerClass = new MyLicenseManager();
-            liscenceManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], args[4]);
+            licenseManagerClass.activateAndCheckLicense(args[0], args[1], args[2], args[3], "no");
         }
     }
 }
@@ -49,10 +52,12 @@ mvn clean package
 ```
 
 This will generate a JAR file with dependencies and obfuscate the code using ProGuard. The resulting JAR file will be located in the `target` directory.
-![img.png](img.png)
+
+![img.png](example/jar_location.png)
 
 Picture below shows side-by-side comparison of LicenseManagerClass before and after obfuscation.
-![img_1.png](img_1.png)
+
+![img_1.png](example/licenseManagerClassComparison.png)
 
 ## Usage
 
